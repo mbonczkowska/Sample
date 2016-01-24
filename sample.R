@@ -69,21 +69,23 @@ for (i in 1:nrow(mostRatedNotNA)) {
 }
 
 
-corr405 <- 0 
+corr92 <- 0 
 for (i in 1:nrow(correlation)) {
-  corr405[i] <- correlation[1,i]
+  corr92[i] <- correlation[20,i]
 }
-corr405
-# osoby z najwyższą korelacją do 405
-colnames(mostRated[order(corr405,decreasing = TRUE)])
+corr92
+# osoby z najwyższą korelacją do 92
+colnames(mostRated[order(corr92,decreasing = TRUE)])
 
-sort405 <- sort(corr405,decreasing = TRUE)
-n405 <- colnames(mostRated[order(corr405,decreasing = TRUE)])[2:6]
-w_n405 <- sort405[2:6]
+sort92 <- sort(corr92,decreasing = TRUE)
+n92 <- colnames(mostRated[order(corr92,decreasing = TRUE)])[2:6]
+w_n92 <- sort92[2:6]
 
-corr405
-n405
-w_n405
+corr92
+n92
+w_n92
+
+user.title.matrix.NA["614",n92]
 
 mostRatU <- 0
 for(j in 1:ncol(mostRated)){
@@ -102,7 +104,7 @@ countRating <- 0
 sumRating <- 0
 for (i in 1:nrow(mostRatedNotNA)) {
   for(j in 1:ncol(mostRatedNotNA)){
-    if(colnames(mostRatedNotNA[j]) == "405"  ){
+    if(colnames(mostRatedNotNA[j]) == "92"  ){
       sumRating <- mostRatedNotNA[i,j] + sumRating
       
       if(mostRatedNotNA[i,j] != 0){
@@ -111,7 +113,7 @@ for (i in 1:nrow(mostRatedNotNA)) {
     }
   }
 }
-mean405 <- sumRating/countRating
+mean92 <- sumRating/countRating
 
 colnames(mostRatedNotNA)
 n406
@@ -120,7 +122,7 @@ sumRating <- 0
 for(k in 1:5){
   for (i in 1:nrow(mostRatedNotNA)) {
     for(j in 1:ncol(mostRatedNotNA)){
-      if(colnames(mostRatedNotNA[j]) == n405[k]  ){
+      if(colnames(mostRatedNotNA[j]) == n92[k]  ){
         
         if(i == 1){
           sumRating[k] <- 0
@@ -136,8 +138,8 @@ for(k in 1:5){
     }
   }
 }
-meanN405 <- sumRating/countRating
-
+meanN92 <- sumRating/countRating
+meanN92
 
 sumu <- 0
 sumd <- 0
@@ -148,7 +150,7 @@ for (k in 1:5) {
     
     for (i in 2:ncol(mostRated)) {
       
-      if(colnames(mostRated[i]) == n405[k] ){
+      if(colnames(mostRated[i]) == n92[k] ){
         
         if(k == 1){
           sumu[j] <- 0
@@ -156,8 +158,8 @@ for (k in 1:5) {
         }
         
         if(mostRatedNotNA[j,i] != 0){
-          sumu[j] <- (mostRatedNotNA[j,i] - meanN405[k]) * w_n405[k] + sumu[j]
-          sumd[j] <- w_n405[k] + sumd[j]
+          sumu[j] <- (mostRatedNotNA[j,i] - meanN92[k]) * w_n92[k] + sumu[j]
+          sumd[j] <- w_n92[k] + sumd[j]
         }
         
       }
@@ -168,16 +170,40 @@ for (k in 1:5) {
   
 }
 
-normalized <- mean405 + (sumu/sumd)
-order(normalized,decreasing = TRUE)
+normalized <- mean92 + (sumu/sumd)
+sortnor <- sort(normalized,decreasing = TRUE)
 score <- rownames(mostRated[order(normalized,decreasing = TRUE),])
 
+mostRated
+
+user.title.matrix.NA[180,1]
+row.names(mostRated["1104",])
+score[35]
+score
+mostRated["",]
+sortnor[35]
 score[1:10]
 user.title.matrix.NA[score,1][1:10]
+sum(!is.na((normalized - user.title.matrix.NA[score,93])) > 1)
+normalized - user.title.matrix.NA[score,93]
+k <-(normalized - user.title.matrix.NA[score,93]) < 0.5
 
-s<- 0
+sum(!is.na(k[k==TRUE]))
+sum(!is.na(k[k==FALSE]))
+z <-is.na(user.title.matrix.NA[score,93])
+is.na(user.title.matrix.NA[score,93])
+TR
+score
+TR
+sort(normalized[z],decreasing = TRUE)
+user.title.matrix.NA[score,1]
+TR <- score[z==TRUE]
+
+user.title.matrix.NA[TR,1]
+user.title.matrix.NA[score[z==TRUE],1]
+
 for (k in 1:5) {
-  s[k] <- mostRated["180",n405[k]]
+  s[k] <- mostRated["180",n92[k]]
 }
 s
 s<- 0
@@ -186,8 +212,3 @@ for (i in 1:length(score)) {
 }
 s
 rownames(mostRated)
-
-
-
-
-
